@@ -78,6 +78,7 @@ services:
       KC_HOSTNAME: 94.198.52.172
       KC_HOSTNAME_PORT: 8086
       KC_HTTP_ENABLED: true
+      KC_HTTPS_ENABLED: false  # Explicitly disable HTTPS
       KC_HOSTNAME_STRICT: false
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_LOG_LEVEL: info
