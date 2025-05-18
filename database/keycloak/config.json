@@ -49,8 +49,8 @@
             "protocol": "openid-connect",
             "standardFlowEnabled": true,
             "directAccessGrantsEnabled": true,
-          "redirectUris": [ "localhost:5173/*", "localhost:8086/*" ],
-          "webOrigins": [ "localhost:5173", "localhost:8080" ],
+            "redirectUris": ["http://94.198.52.172:8086/*"],
+            "webOrigins": ["http://94.198.52.172:8080"],
             "protocolMappers": [
                 {
                     "name": "audience",
