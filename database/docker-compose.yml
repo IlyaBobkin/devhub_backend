@@ -106,6 +106,10 @@ services:
 networks:
   hh-network:
     driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
 
 volumes:
   postgres_data:
