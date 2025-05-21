@@ -34,7 +34,7 @@ export default function verifyTokenMiddleware(requiredRole) {
             getKey,
             {
                 algorithms: ['RS256'],
-                issuer: 'http://localhost:8086/realms/hh_realm',
+                issuer: 'http://localhost:8086/realms/hh_realm', // Обновлено с http://keycloak:8080
                 audience: 'frontend',
             },
             (err, decoded) => {

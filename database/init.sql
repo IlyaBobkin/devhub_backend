@@ -83,6 +83,19 @@ CREATE TABLE messages (
 
 );
 
+CREATE TABLE notifications (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id),
+    type VARCHAR(50) NOT NULL, -- Тип уведомления: 'response_status', 'invitation'
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    vacancy_id UUID REFERENCES vacancies(id),
+    response_id UUID REFERENCES vacancy_responses(id),
+    invitation_id UUID REFERENCES vacancy_invitations(id),
+    fcm_token TEXT -- Для хранения FCM-токена пользователя
+);
+
 
 BEGIN;
 INSERT INTO specializations (name) VALUES

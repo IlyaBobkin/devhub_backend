@@ -5,7 +5,7 @@ import session from 'express-session';
 export default async function initKeycloak() {
     const kcConnectConfig = {
         clientId: 'frontend',
-        baseUrl: 'http://keycloak:8080', // Use env var or internal URL,
+        serverUrl: 'http://keycloak:8080',
         realm: 'hh_realm',
         sslRequired: 'none',
         resource: 'frontend',
@@ -18,7 +18,7 @@ export default async function initKeycloak() {
     const keycloak = new Keycloak({ store: memoryStore }, kcConnectConfig);
 
     const kcAdminClient = new KcAdminClient({
-        baseUrl: baseUrl: 'http://keycloak:8080',
+        baseUrl: 'http://keycloak:8080',
         realmName: 'hh_realm',
     });
 

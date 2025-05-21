@@ -357,6 +357,48 @@ try {
         }
     );
 
+         app.get('/notifications', verifyTokenMiddleware(), (req, res) => {
+        const userId = req.user.sub;
+        dbController.getUserNotifications(res, userId);
+    });
+
+    app.post('/notifications/:id/read', verifyTokenMiddleware(), async (req, res) => {
+  const userId = req.user.sub;
+  const notificationId = req.params.id;
+
+  try {
+    await dbController.markNotificationAsRead(notificationId, userId);
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.error('Ошибка пометки уведомления как прочитанного:', err);
+    res.status(500).json({ error: 'Не удалось отметить уведомление как прочитанное' });
+  }
+});
+
+
+        app.post('/fcm-token', verifyTokenMiddleware('applicant'), async (req, res) => {
+      if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized: User not authenticated' });
+      }
+      const userId = req.user.sub; // Используем req.user.sub вместо req.kauth.grant.access_token.content.sub
+      const fcmToken = req.body.fcm_token;
+      if (!fcmToken) {
+        return res.status(400).json({ error: 'FCM token is required' });
+      }
+      try {
+        const client = await pool.connect();
+        await client.query(
+          `UPDATE users SET fcm_token = $1 WHERE id = $2`,
+          [fcmToken, userId]
+        );
+        client.release();
+        res.json({ success: true, message: 'FCM token saved' });
+      } catch (error) {
+        console.error('Error saving FCM token:', error);
+        res.status(500).json({ error: 'Failed to save FCM token' });
+      }
+    });
+
     app.patch('/vacancies/:vacancyId/responses/:responseId', verifyTokenMiddleware(), (req, res) => {
             const { responseId } = req.params;
             const { status } = req.body;

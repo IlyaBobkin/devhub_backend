@@ -1,4 +1,6 @@
-// В db.js
+import pg from 'pg';
+const { Pool } = pg;
+
 const pool = new Pool({
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
@@ -7,13 +9,4 @@ const pool = new Pool({
     database: process.env.DB_NAME || 'my_database',
 });
 
-// Добавьте проверку подключения
-(async () => {
-    try {
-        await pool.connect();
-        console.log('Успешно подключились к базе данных');
-    } catch (err) {
-        console.error('Ошибка подключения к базе данных:', err);
-        process.exit(1);
-    }
-})();
+export default pool;
