@@ -3,7 +3,8 @@ CREATE TABLE users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     role VARCHAR(50) CHECK (role IN ('admin', 'company_owner', 'applicant')) NOT NULL,
-    created_at DATE NOT NULL
+    created_at DATE NOT NULL,
+    fcm_token TEXT
 );
 
 CREATE TABLE specializations (
