@@ -83,18 +83,36 @@ CREATE TABLE messages (
 
 );
 
-CREATE TABLE notifications (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL REFERENCES users(id),
-    type VARCHAR(50) NOT NULL, -- Тип уведомления: 'response_status', 'invitation'
-    message TEXT NOT NULL,
-    is_read BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    vacancy_id UUID REFERENCES vacancies(id),
-    response_id UUID REFERENCES vacancy_responses(id),
-    invitation_id UUID REFERENCES vacancy_invitations(id),
-    fcm_token TEXT -- Для хранения FCM-токена пользователя
-);
+CREATE TABLE IF NOT EXISTS public.notifications
+(
+    id uuid NOT NULL DEFAULT gen_random_uuid(),
+    user_id uuid NOT NULL,
+    type character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    message text COLLATE pg_catalog."default" NOT NULL,
+    is_read boolean DEFAULT false,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    vacancy_id uuid,
+    response_id uuid,
+    invitation_id uuid,
+    fcm_token text COLLATE pg_catalog."default",
+    CONSTRAINT notifications_pkey PRIMARY KEY (id),
+    CONSTRAINT notifications_invitation_id_fkey FOREIGN KEY (invitation_id)
+        REFERENCES public.vacancy_invitations (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT notifications_response_id_fkey FOREIGN KEY (response_id)
+        REFERENCES public.vacancy_responses (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT notifications_user_id_fkey FOREIGN KEY (user_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT notifications_vacancy_id_fkey FOREIGN KEY (vacancy_id)
+        REFERENCES public.vacancies (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
 
 
 BEGIN;
