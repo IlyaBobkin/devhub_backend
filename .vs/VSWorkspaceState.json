@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\db",
+    "\\backend\\keycloak",
+    "\\database"
+  ],
+  "SelectedNode": "\\backend\\index.js",
+  "PreviewInSolutionExplorer": false
+}
