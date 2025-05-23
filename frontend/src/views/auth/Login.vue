@@ -61,7 +61,7 @@ const handleLogin = async () => {
 
   loading.value = true;
   try {
-    const response = await fetch('http://localhost:8086/realms/hh_realm/protocol/openid-connect/token', {
+    const response = await fetch('http://31.207.77.35:8086/realms/hh_realm/protocol/openid-connect/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -87,7 +87,7 @@ const handleLogin = async () => {
     keycloak.refreshToken = data.refresh_token;
     keycloak.authenticated = true;
 
-    const userInfoResponse = await fetch('http://localhost:8086/realms/hh_realm/protocol/openid-connect/userinfo', {
+    const userInfoResponse = await fetch('http://31.207.77.35:8086/realms/hh_realm/protocol/openid-connect/userinfo', {
       headers: { Authorization: `Bearer ${data.access_token}` },
     });
 
@@ -110,7 +110,7 @@ const handleLogin = async () => {
       throw new Error('Выбранная роль не соответствует роли пользователя');
     }
 
-    const profileResponse = await fetch('http://localhost:8080/user/profile', {
+    const profileResponse = await fetch('http://31.207.77.35:8080/user/profile', {
       headers: { Authorization: `Bearer ${data.access_token}` },
     });
 
