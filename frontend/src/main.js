@@ -44,7 +44,7 @@ async function initializeApp() {
                 keycloak.authenticated = true;
 
                 // Загружаем информацию о пользователе
-                const userInfoResponse = await fetch('http://localhost:8086/realms/hh_realm/protocol/openid-connect/userinfo', {
+                const userInfoResponse = await fetch('http://31.207.77.35:8086/realms/hh_realm/protocol/openid-connect/userinfo', {
                     headers: {
                         Authorization: `Bearer ${keycloak.token}`,
                     },
@@ -58,7 +58,7 @@ async function initializeApp() {
                 console.log('User info loaded:', userInfo);
 
                 // Запрашиваем профиль
-                const profileResponse = await fetch('http://localhost:8080/user/profile', {
+                const profileResponse = await fetch('http://31.207.77.35:8080/user/profile', {
                     headers: {
                         Authorization: `Bearer ${keycloak.token}`,
                     },
