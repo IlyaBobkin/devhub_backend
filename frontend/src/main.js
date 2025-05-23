@@ -16,7 +16,7 @@ const pinia = createPinia();
 app.use(pinia);
 
 const keycloak = new Keycloak({
-    url: 'http://localhost:8086',
+    url: 'http://31.207.77.35:8086',
     realm: 'hh_realm',
     clientId: 'frontend',
 });
