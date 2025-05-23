@@ -1,8 +1,8 @@
 import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
 
-export const API_ADDRESS = 'http://localhost:8080';
-export const KEYCLOAK_ADDRESS = 'http://localhost:8086';
+export const API_ADDRESS = 'http://31.207.77.35:8080';
+export const KEYCLOAK_ADDRESS = 'http://31.207.77.35:8086';
 
 interface RequestOptions extends RequestInit {
     requiresAuth?: boolean;
